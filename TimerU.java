@@ -44,6 +44,11 @@ public class TimerU {
         if (isStart) {
             mHandler.removeMessages(FLAG_START);
             mIntNow = 0;
+
+            if (null == mOnTickListener) {
+                return;
+            }
+            mOnTickListener.onCancel();
         }
     }
 
@@ -82,6 +87,8 @@ public class TimerU {
         void onTick(int time);
 
         void onEnd();
+
+        void onCancel();
     }
 
     public void setOnTickListener(OnTickListener listener) {
