@@ -1,4 +1,4 @@
-package com.tianyigps.dispatch2.utils;
+package cn.cookiemouse.oneroad.utils;
 
 import android.os.Handler;
 import android.os.Message;
@@ -38,6 +38,13 @@ public class TimerU {
         }
         mHandler.sendEmptyMessage(FLAG_START);
         isStart = true;
+    }
+
+    public void cancle() {
+        if (isStart) {
+            mHandler.removeMessages(FLAG_START);
+            mIntNow = 0;
+        }
     }
 
     private class TimerUHandler extends Handler {
