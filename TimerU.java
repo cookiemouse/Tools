@@ -43,7 +43,8 @@ public class TimerU {
     public void cancle() {
         if (isStart) {
             mHandler.removeMessages(FLAG_START);
-            mIntNow = 0;
+            mIntNow = mIntMax;
+            isStart = false;
 
             if (null == mOnTickListener) {
                 return;
