@@ -27,7 +27,7 @@ public interface IDialogBuilder {
 
     IDialogBuilder setBackgroundTransparent(boolean transparent);
 
-    IDialogBuilder showLoading(boolean loading);
+    IDialogBuilder showLoading(Context context, boolean loading);
 
     AlertDialog build();
 

@@ -17,39 +17,21 @@ import com.gumi.dms.R;
 public class DialogU {
 
     private static DialogBuilder mDialogBuilder;
+    private static AlertDialog.Builder mBuilder;
 
     public static DialogBuilder with(Context context) {
         mDialogBuilder = new DialogBuilder();
-        mDialogBuilder.with(context);
+        mBuilder = new AlertDialog.Builder(context);
         return mDialogBuilder;
-    }
-
-    public static DialogBuilder setView(View view) {
-        mDialogBuilder.setView(view);
-        return mDialogBuilder;
-    }
-
-    public static DialogBuilder setCancelable(boolean cancelable) {
-        mDialogBuilder.setCancelable(cancelable);
-        return mDialogBuilder;
-    }
-
-    public void show() {
-        mDialogBuilder.show();
     }
 
     public static class DialogBuilder implements IDialogBuilder {
 
-        private static AlertDialog.Builder mBuilder;
         private AlertDialog mAlertDialog;
         private boolean mTransparent = false;
-        private View mContentView;
-        private Context mContext;
 
         @Override
         public IDialogBuilder with(Context context) {
-            this.mContext = context;
-            mBuilder = new AlertDialog.Builder(context);
             return this;
         }
 
@@ -58,7 +40,6 @@ public class DialogU {
             if (null == mBuilder) {
                 throw new IllegalArgumentException("DialogU need with Context");
             }
-            this.mContentView = view;
             mBuilder.setView(view);
             return this;
         }
@@ -109,15 +90,15 @@ public class DialogU {
         }
 
         @Override
-        public IDialogBuilder showLoading(boolean loading) {
+        public IDialogBuilder showLoading(Context context, boolean loading) {
             if (null == mBuilder) {
                 throw new IllegalArgumentException("DialogU need with Context");
             }
-            mContentView = LayoutInflater.from(mContext).inflate(R.layout.dialog_loading, null);
-            SwipeRefreshLayout swipeRefreshLayout = mContentView.findViewById(R.id.srl_dialog_fragment);
+            View mLoadingView = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
+            SwipeRefreshLayout swipeRefreshLayout = mLoadingView.findViewById(R.id.srl_dialog_fragment);
             swipeRefreshLayout.setColorSchemeColors(0xff3cabfa);
             swipeRefreshLayout.setRefreshing(true);
-            this.setView(mContentView);
+            this.setView(mLoadingView);
             this.setBackgroundTransparent(true);
             return this;
         }
@@ -149,7 +130,7 @@ public class DialogU {
             if (null == mDialogBuilder) {
                 throw new IllegalArgumentException("DialogU need with Context");
             }
-            mAlertDialog = mDialogBuilder.build();
+            mAlertDialog = this.build();
             mAlertDialog.show();
         }
 
