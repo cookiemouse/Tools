@@ -19,11 +19,15 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
 
     private static MessageDialog mMessageDialog;
 
-    private boolean mTranslate = false;
+    private static boolean mTranslate = false;
+
+    private MessageDialog() {
+    }
 
     public static MessageDialog with(Context context) {
 
         mDialogBuilder = new AlertDialog.Builder(context);
+        mTranslate = false;
 
         if (mMessageDialog == null) {
             synchronized (MessageDialog.class) {
