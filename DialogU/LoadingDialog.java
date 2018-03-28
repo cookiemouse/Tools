@@ -32,9 +32,9 @@ public class LoadingDialog extends ADialogBuilder {
         swipeRefreshLayout.setRefreshing(true);
         mBuilder.setView(mLoadingView);
 
-        if(mLoadingDialog == null) {
-            synchronized(LoadingDialog.class) {
-                if(mLoadingDialog == null) {
+        if (mLoadingDialog == null) {
+            synchronized (LoadingDialog.class) {
+                if (mLoadingDialog == null) {
                     mLoadingDialog = new LoadingDialog();
                 }
             }
@@ -44,36 +44,25 @@ public class LoadingDialog extends ADialogBuilder {
     }
 
     @Override
-    public ADialogBuilder setCancelable(boolean cancelable) {
+    public LoadingDialog setCancelable(boolean cancelable) {
         Log.i(TAG, "setCancelable: ");
         mBuilder.setCancelable(cancelable);
-        return mLoadingDialog;
+        return this;
     }
 
     @Override
-    public AlertDialog build() {
+    public LoadingDialog show() {
+        Log.i(TAG, "show: ");
         if (null == mBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("LoadingDialog need with Context");
         }
         mAlertDialog = mBuilder.create();
         Window window = mAlertDialog.getWindow();
         if (null != window) {
             window.setBackgroundDrawableResource(android.R.color.transparent);
         }
-
-        return mAlertDialog;
-    }
-
-    @Override
-    public void show() {
-        Log.i(TAG, "show: ");
-        if (null == mBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
-        }
-        if (null == mAlertDialog) {
-            mAlertDialog = this.build();
-        }
         mAlertDialog.show();
+        return this;
     }
 
     @Override

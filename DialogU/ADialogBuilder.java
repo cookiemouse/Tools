@@ -13,11 +13,9 @@ public abstract class ADialogBuilder{
 
     private static final String TAG = "ADialogBuilder";
 
-    public abstract void show();
+    public abstract ADialogBuilder show();
 
     public abstract void dismiss();
 
     public abstract ADialogBuilder setCancelable(boolean cancelable);
-
-    public abstract AlertDialog build();
 }

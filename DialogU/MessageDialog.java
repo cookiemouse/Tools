@@ -33,28 +33,19 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
     }
 
     @Override
-    public AlertDialog build() {
+    public MessageDialog show() {
         if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mAlertDialog = mDialogBuilder.create();
-
-        return mAlertDialog;
-    }
-
-    @Override
-    public void show() {
-        if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
-        }
-        mAlertDialog = this.build();
         mAlertDialog.show();
+        return this;
     }
 
     @Override
     public void dismiss() {
         if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("MessageDialog is Null");
         }
         mAlertDialog.dismiss();
     }
@@ -62,54 +53,54 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
     @Override
     public MessageDialog setView(View view) {
         if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mDialogBuilder.setView(view);
-        return mMessageDialog;
+        return this;
     }
 
     @Override
     public MessageDialog setMessage(String msg) {
         if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mDialogBuilder.setMessage(msg);
-        return mMessageDialog;
+        return this;
     }
 
     @Override
     public MessageDialog setMessage(int msgId) {
         if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mDialogBuilder.setMessage(msgId);
-        return mMessageDialog;
+        return this;
     }
 
     @Override
     public MessageDialog setCancelable(boolean cancelable) {
         if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mDialogBuilder.setCancelable(cancelable);
-        return mMessageDialog;
+        return this;
     }
 
     @Override
     public MessageDialog setPositiveClickListener(String text, DialogInterface.OnClickListener listener) {
         if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mDialogBuilder.setPositiveButton(text, listener);
-        return mMessageDialog;
+        return this;
     }
 
     @Override
     public MessageDialog setNegativeClickListener(String text, DialogInterface.OnClickListener listener) {
         if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("DialogU need with Context");
+            throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mDialogBuilder.setNegativeButton(text, listener);
-        return mMessageDialog;
+        return this;
     }
 }
