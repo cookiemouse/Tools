@@ -9,27 +9,27 @@ import android.view.View;
  * Created by tianyi on 18-3-27.
  */
 
-public class NormalDialog extends ADialogBuilder {
+public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
 
-    private static final String TAG = "NormalDialog";
+    private static final String TAG = "MessageDialog";
 
     private static AlertDialog.Builder mDialogBuilder;
     private static AlertDialog mAlertDialog;
 
-    private static NormalDialog mNormalDialog;
+    private static MessageDialog mMessageDialog;
 
-    public static NormalDialog with(Context context) {
+    public static MessageDialog with(Context context) {
 
         mDialogBuilder = new AlertDialog.Builder(context);
 
-        if(mNormalDialog == null) {
-            synchronized(NormalDialog.class) {
-                if(mNormalDialog == null) {
-                    mNormalDialog = new NormalDialog();
+        if(mMessageDialog == null) {
+            synchronized(MessageDialog.class) {
+                if(mMessageDialog == null) {
+                    mMessageDialog = new MessageDialog();
                 }
             }
         }
-        return mNormalDialog;
+        return mMessageDialog;
     }
 
     @Override
@@ -60,56 +60,56 @@ public class NormalDialog extends ADialogBuilder {
     }
 
     @Override
-    public NormalDialog setView(View view) {
+    public MessageDialog setView(View view) {
         if (null == mDialogBuilder) {
             throw new IllegalArgumentException("DialogU need with Context");
         }
         mDialogBuilder.setView(view);
-        return mNormalDialog;
+        return mMessageDialog;
     }
 
     @Override
-    public NormalDialog setMessage(String msg) {
+    public MessageDialog setMessage(String msg) {
         if (null == mDialogBuilder) {
             throw new IllegalArgumentException("DialogU need with Context");
         }
         mDialogBuilder.setMessage(msg);
-        return mNormalDialog;
+        return mMessageDialog;
     }
 
     @Override
-    public NormalDialog setMessage(int msgId) {
+    public MessageDialog setMessage(int msgId) {
         if (null == mDialogBuilder) {
             throw new IllegalArgumentException("DialogU need with Context");
         }
         mDialogBuilder.setMessage(msgId);
-        return mNormalDialog;
+        return mMessageDialog;
     }
 
     @Override
-    public NormalDialog setCancelable(boolean cancelable) {
+    public MessageDialog setCancelable(boolean cancelable) {
         if (null == mDialogBuilder) {
             throw new IllegalArgumentException("DialogU need with Context");
         }
         mDialogBuilder.setCancelable(cancelable);
-        return mNormalDialog;
+        return mMessageDialog;
     }
 
     @Override
-    public NormalDialog setPositiveClickListener(String text, DialogInterface.OnClickListener listener) {
+    public MessageDialog setPositiveClickListener(String text, DialogInterface.OnClickListener listener) {
         if (null == mDialogBuilder) {
             throw new IllegalArgumentException("DialogU need with Context");
         }
         mDialogBuilder.setPositiveButton(text, listener);
-        return mNormalDialog;
+        return mMessageDialog;
     }
 
     @Override
-    public NormalDialog setNegativeClickListener(String text, DialogInterface.OnClickListener listener) {
+    public MessageDialog setNegativeClickListener(String text, DialogInterface.OnClickListener listener) {
         if (null == mDialogBuilder) {
             throw new IllegalArgumentException("DialogU need with Context");
         }
         mDialogBuilder.setNegativeButton(text, listener);
-        return mNormalDialog;
+        return mMessageDialog;
     }
 }
