@@ -1,4 +1,4 @@
-package com.gumi.dms.dialog;
+package cn.cookiemouse.dialogutils;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-
-import com.gumi.dms.R;
 
 /**
  * Created by tianyi on 18-3-27.
@@ -26,8 +24,9 @@ public class LoadingDialog extends ADialogBuilder {
     public static LoadingDialog with(Context context) {
         Log.i(TAG, "with: ");
         mBuilder = new AlertDialog.Builder(context);
+        mBuilder.setCancelable(false);
         View mLoadingView = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
-        SwipeRefreshLayout swipeRefreshLayout = mLoadingView.findViewById(R.id.srl_dialog_fragment);
+        SwipeRefreshLayout swipeRefreshLayout = mLoadingView.findViewById(R.id.srl_dialog);
         swipeRefreshLayout.setColorSchemeColors(0xff3cabfa);
         swipeRefreshLayout.setRefreshing(true);
         mBuilder.setView(mLoadingView);

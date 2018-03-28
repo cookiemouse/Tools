@@ -1,9 +1,10 @@
-package com.gumi.dms.dialog;
+package cn.cookiemouse.dialogutils;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
+import android.view.Window;
 
 /**
  * Created by tianyi on 18-3-27.
@@ -18,13 +19,15 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
 
     private static MessageDialog mMessageDialog;
 
+    private boolean mTranslate = false;
+
     public static MessageDialog with(Context context) {
 
         mDialogBuilder = new AlertDialog.Builder(context);
 
-        if(mMessageDialog == null) {
-            synchronized(MessageDialog.class) {
-                if(mMessageDialog == null) {
+        if (mMessageDialog == null) {
+            synchronized (MessageDialog.class) {
+                if (mMessageDialog == null) {
                     mMessageDialog = new MessageDialog();
                 }
             }
@@ -38,6 +41,14 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
             throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mAlertDialog = mDialogBuilder.create();
+        if (!mTranslate) {
+            mAlertDialog.show();
+            return this;
+        }
+        Window window = mAlertDialog.getWindow();
+        if (null != window) {
+            window.setBackgroundDrawableResource(android.R.color.transparent);
+        }
         mAlertDialog.show();
         return this;
     }
@@ -101,6 +112,12 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
             throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mDialogBuilder.setNegativeButton(text, listener);
+        return this;
+    }
+
+    @Override
+    public MessageDialog setBackgroundTranslate(boolean translate) {
+        this.mTranslate = translate;
         return this;
     }
 }

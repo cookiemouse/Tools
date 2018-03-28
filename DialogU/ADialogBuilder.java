@@ -1,9 +1,4 @@
-package com.gumi.dms.dialog;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.util.Log;
-import android.view.View;
+package cn.cookiemouse.dialogutils;
 
 /**
  * Created by tianyi on 18-3-27.

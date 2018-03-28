@@ -1,4 +1,4 @@
-package com.gumi.dms.dialog;
+package cn.cookiemouse.dialogutils;
 
 import android.content.DialogInterface;
 import android.view.View;
@@ -18,4 +18,6 @@ public interface IDialogBuilder {
     IDialogBuilder setPositiveClickListener(String text, DialogInterface.OnClickListener listener);
 
     IDialogBuilder setNegativeClickListener(String text, DialogInterface.OnClickListener listener);
+
+    IDialogBuilder setBackgroundTranslate(boolean translate);
 }
