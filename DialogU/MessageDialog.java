@@ -19,7 +19,7 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
 
     private static MessageDialog mMessageDialog;
 
-    private static boolean mTranslate = false;
+    private float mAmount = 0.5f;
 
     private MessageDialog() {
     }
@@ -27,7 +27,6 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
     public static MessageDialog with(Context context) {
 
         mDialogBuilder = new AlertDialog.Builder(context);
-        mTranslate = false;
 
         if (mMessageDialog == null) {
             synchronized (MessageDialog.class) {
@@ -45,13 +44,10 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
             throw new IllegalArgumentException("MessageDialog need with Context");
         }
         mAlertDialog = mDialogBuilder.create();
-        if (!mTranslate) {
-            mAlertDialog.show();
-            return this;
-        }
+
         Window window = mAlertDialog.getWindow();
         if (null != window) {
-            window.setBackgroundDrawableResource(android.R.color.transparent);
+            window.setDimAmount(mAmount);
         }
         mAlertDialog.show();
         return this;
@@ -63,15 +59,6 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
             throw new IllegalArgumentException("MessageDialog is Null");
         }
         mAlertDialog.dismiss();
-    }
-
-    @Override
-    public MessageDialog setView(View view) {
-        if (null == mDialogBuilder) {
-            throw new IllegalArgumentException("MessageDialog need with Context");
-        }
-        mDialogBuilder.setView(view);
-        return this;
     }
 
     @Override
@@ -120,8 +107,8 @@ public class MessageDialog extends ADialogBuilder implements IDialogBuilder {
     }
 
     @Override
-    public MessageDialog setBackgroundTranslate(boolean translate) {
-        this.mTranslate = translate;
+    public MessageDialog setDimAmount(float amount) {
+        this.mAmount = amount;
         return this;
     }
 }

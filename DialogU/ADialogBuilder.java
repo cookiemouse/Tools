@@ -12,5 +12,7 @@ public abstract class ADialogBuilder{
 
     public abstract void dismiss();
 
+    public abstract ADialogBuilder setDimAmount(float amount);
+
     public abstract ADialogBuilder setCancelable(boolean cancelable);
 }

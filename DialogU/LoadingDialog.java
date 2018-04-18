@@ -1,6 +1,6 @@
 package cn.cookiemouse.dialogutils;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -16,20 +16,20 @@ public class LoadingDialog extends ADialogBuilder {
 
     private static final String TAG = "LoadingDialog";
 
-    private static AlertDialog.Builder mBuilder;
-    private static AlertDialog mAlertDialog;
+    private static Dialog mDialog;
 
     private static LoadingDialog mLoadingDialog;
 
     public static LoadingDialog with(Context context) {
         Log.i(TAG, "with: ");
-        mBuilder = new AlertDialog.Builder(context);
-        mBuilder.setCancelable(false);
         View mLoadingView = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
         SwipeRefreshLayout swipeRefreshLayout = mLoadingView.findViewById(R.id.srl_dialog);
         swipeRefreshLayout.setColorSchemeColors(0xff3cabfa);
         swipeRefreshLayout.setRefreshing(true);
-        mBuilder.setView(mLoadingView);
+
+        mDialog = new Dialog(context, R.style.DialogTranslate);
+//        mDialog.setCancelable(false);
+        mDialog.setContentView(mLoadingView);
 
         if (mLoadingDialog == null) {
             synchronized (LoadingDialog.class) {
@@ -45,30 +45,31 @@ public class LoadingDialog extends ADialogBuilder {
     @Override
     public LoadingDialog setCancelable(boolean cancelable) {
         Log.i(TAG, "setCancelable: ");
-        mBuilder.setCancelable(cancelable);
+        mDialog.setCancelable(cancelable);
         return this;
     }
 
     @Override
     public LoadingDialog show() {
         Log.i(TAG, "show: ");
-        if (null == mBuilder) {
-            throw new IllegalArgumentException("LoadingDialog need with Context");
-        }
-        mAlertDialog = mBuilder.create();
-        Window window = mAlertDialog.getWindow();
-        if (null != window) {
-            window.setBackgroundDrawableResource(android.R.color.transparent);
-        }
-        mAlertDialog.show();
+        mDialog.show();
         return this;
     }
 
     @Override
     public void dismiss() {
-        if (null == mAlertDialog) {
+        if (null == mDialog) {
             throw new NullPointerException("AlertDialog is Null");
         }
-        mAlertDialog.dismiss();
+        mDialog.dismiss();
+    }
+
+    @Override
+    public LoadingDialog setDimAmount(float amount) {
+        Window window = mDialog.getWindow();
+        if (null != window) {
+            window.setDimAmount(amount);
+        }
+        return this;
     }
 }

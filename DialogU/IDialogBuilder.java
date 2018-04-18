@@ -9,8 +9,6 @@ import android.view.View;
 
 public interface IDialogBuilder {
 
-    IDialogBuilder setView(View view);
-
     IDialogBuilder setMessage(String msg);
 
     IDialogBuilder setMessage(int msgId);
@@ -18,6 +16,4 @@ public interface IDialogBuilder {
     IDialogBuilder setPositiveClickListener(String text, DialogInterface.OnClickListener listener);
 
     IDialogBuilder setNegativeClickListener(String text, DialogInterface.OnClickListener listener);
-
-    IDialogBuilder setBackgroundTranslate(boolean translate);
 }

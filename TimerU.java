@@ -40,6 +40,11 @@ public class TimerU {
         isStart = true;
     }
 
+    public void reStart() {
+        mIntNow = mIntMax;
+        start();
+    }
+
     public void cancle() {
         if (isStart) {
             mHandler.removeMessages(FLAG_START);
