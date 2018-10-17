@@ -1,11 +1,11 @@
-package cn.cookiemouse.oneroad.utils;
+package cn.cookiemouse.detectiontool.utils;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
 /**
- * Created by djc on 2017/7/13.
+ * Created by cookiemouse on 2017/7/13.
  */
 
 public class TimerU {
@@ -15,10 +15,15 @@ public class TimerU {
 
     private static final int FLAG_START = 0x01;
     private static final int FLAG_END = 0x02;
+    private static final int FLAG_DELAY = 0x03;
+
+    private static final int MIN = 0;
+    private static final int INIT_DELAY = -1;
 
     private int mIntMax;
-    private int mIntMin = 0;
     private int mIntNow;
+
+    private long mDelay = INIT_DELAY;
 
     private boolean isStart = false;
 
@@ -32,21 +37,28 @@ public class TimerU {
         mHandler = new TimerUHandler();
     }
 
+    public TimerU(long delay) {
+        this.mDelay = delay;
+        mHandler = new TimerUHandler();
+    }
+
     public void start() {
+        if (INIT_DELAY != mDelay) {
+            isStart = true;
+            mHandler.sendEmptyMessageDelayed(FLAG_DELAY, mDelay);
+            return;
+        }
         if (isStart) {
             return;
         }
+        mIntNow = mIntMax;
         mHandler.sendEmptyMessage(FLAG_START);
         isStart = true;
     }
 
-    public void reStart() {
-        mIntNow = mIntMax;
-        start();
-    }
-
     public void cancle() {
         if (isStart) {
+            mHandler.removeMessages(FLAG_DELAY);
             mHandler.removeMessages(FLAG_START);
             mIntNow = mIntMax;
             isStart = false;
@@ -68,7 +80,7 @@ public class TimerU {
             switch (msg.what) {
                 case FLAG_START: {
                     mOnTickListener.onTick(mIntNow);
-                    if (mIntNow > mIntMin) {
+                    if (mIntNow > MIN) {
                         sendEmptyMessageDelayed(FLAG_START, DELAY);
                         mIntNow--;
                         break;
@@ -79,6 +91,11 @@ public class TimerU {
                 case FLAG_END: {
                     mOnTickListener.onEnd();
                     mIntNow = mIntMax;
+                    isStart = false;
+                    break;
+                }
+                case FLAG_DELAY: {
+                    mOnTickListener.onEnd();
                     isStart = false;
                     break;
                 }
