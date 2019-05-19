@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "test.py", line 21, in <module>
+    app.run(host='172.31.30.190', port=80, debug=False)
+  File "/usr/local/lib64/python3.6/site-packages/flask/app.py", line 841, in run
+    run_simple(host, port, self, **options)
+  File "/usr/local/lib/python3.6/site-packages/werkzeug/serving.py", line 814, in run_simple
+    inner()
+  File "/usr/local/lib/python3.6/site-packages/werkzeug/serving.py", line 774, in inner
+    fd=fd)
+  File "/usr/local/lib/python3.6/site-packages/werkzeug/serving.py", line 666, in make_server
+    passthrough_errors, ssl_context, fd=fd)
+  File "/usr/local/lib/python3.6/site-packages/werkzeug/serving.py", line 577, in __init__
+    self.address_family), handler)
+  File "/usr/lib64/python3.6/socketserver.py", line 453, in __init__
+    self.server_bind()
+  File "/usr/lib64/python3.6/http/server.py", line 136, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/usr/lib64/python3.6/socketserver.py", line 467, in server_bind
+    self.socket.bind(self.server_address)
+OSError: [Errno 98] Address already in use
